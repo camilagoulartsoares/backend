@@ -4,6 +4,7 @@ Este é o backend da aplicação Investidores.vc, desenvolvido com **NestJS**, *
 
 ---
 
+
 ## 📦 Tecnologias
 
 - [x] NestJS
