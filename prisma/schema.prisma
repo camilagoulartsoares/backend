@@ -1,0 +1,42 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+   url      = "file:dev.db"
+}
+
+
+model Startup {
+  id              String     @id @default(uuid())
+  nome_da_startup String
+  descricao       String
+  imagem_de_capa  String?
+  vertical        String?
+  localizacao     String?
+  cresimento_mom  Float?
+
+  investments     Investment[]
+}
+
+model User {
+  id          Int          @id @default(autoincrement())
+  name        String
+  email       String       @unique
+  password    String?
+  provider    String?
+  investments Investment[]
+  createdAt   DateTime     @default(now())
+}
+
+model Investment {
+  id         Int      @id @default(autoincrement())
+  userId     Int
+  startupId  String
+  amount     Float
+  createdAt  DateTime @default(now())
+
+  user       User     @relation(fields: [userId], references: [id])
+  startup    Startup  @relation(fields: [startupId], references: [id])
+}
