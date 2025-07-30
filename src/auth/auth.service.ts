@@ -2,6 +2,24 @@ import { Injectable, UnauthorizedException } from '@nestjs/common'
 import { JwtService } from '@nestjs/jwt'
 import { PrismaService } from '../../prisma.service'
 import * as bcrypt from 'bcryptjs'
+import { User } from '@prisma/client'
+
+interface RegisterDTO {
+  name: string
+  email: string
+  password: string
+}
+
+interface LoginDTO {
+  email: string
+  password: string
+}
+
+interface OAuthRegisterDTO {
+  name: string
+  email: string
+  provider: string
+}
 
 @Injectable()
 export class AuthService {
@@ -10,7 +28,7 @@ export class AuthService {
     private jwtService: JwtService
   ) {}
 
-  async register(data: { name: string; email: string; password: string }) {
+  async register(data: RegisterDTO): Promise<{ token: string }> {
     const userExists = await this.prisma.user.findUnique({
       where: { email: data.email },
     })
@@ -21,7 +39,7 @@ export class AuthService {
 
     const hashedPassword = await bcrypt.hash(data.password, 10)
 
-    const user = await this.prisma.user.create({
+    const user: User = await this.prisma.user.create({
       data: {
         name: data.name,
         email: data.email,
@@ -34,7 +52,7 @@ export class AuthService {
     return { token }
   }
 
-  async login(data: { email: string; password: string }) {
+  async login(data: LoginDTO): Promise<{ token: string }> {
     const user = await this.prisma.user.findUnique({
       where: { email: data.email },
     })
@@ -53,7 +71,7 @@ export class AuthService {
     return { token }
   }
 
-  async oauthRegister(data: { name: string; email: string; provider: string }) {
+  async oauthRegister(data: OAuthRegisterDTO): Promise<{ token: string }> {
     let user = await this.prisma.user.findUnique({
       where: { email: data.email },
     })

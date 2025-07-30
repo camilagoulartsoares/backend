@@ -5,7 +5,7 @@ import {
   Param,
   Post,
   Patch,
-  Delete
+  Delete,
 } from '@nestjs/common'
 import { StartupService } from './startup.service'
 import { Prisma } from '@prisma/client'
@@ -16,7 +16,7 @@ import { firstValueFrom } from 'rxjs'
 export class StartupController {
   constructor(
     private readonly service: StartupService,
-    private readonly httpService: HttpService
+    private readonly httpService: HttpService,
   ) {}
 
   @Post()
@@ -37,14 +37,15 @@ export class StartupController {
   @Patch(':id')
   update(
     @Param('id') id: string,
-    @Body() body: Partial<{
+    @Body()
+    body: Partial<{
       nome_da_startup: string
       descricao: string
       imagem_de_capa: string
       vertical: string
       localizacao: string
       cresimento_mom: number
-    }>
+    }>,
   ) {
     return this.service.update(id, body)
   }
@@ -55,14 +56,14 @@ export class StartupController {
   }
 
   @Get('publicas')
-  async getPublicas() {
+  async getPublicas(): Promise<any> {
     const response = await firstValueFrom(
       this.httpService.get('https://make.investidores.vc/webhook/startup', {
         headers: {
           'Content-Type': 'application/json',
           api_key: 'alkj239j9csdociva-av98n2vsdoia-asoijf20as',
         },
-      })
+      }),
     )
     return response.data
   }
