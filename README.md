@@ -1,5 +1,4 @@
 # Investidores.vc – Backend
-# Investidores.vc – Backend
 
 Este é o backend da aplicação **Investidores.vc**, construído com foco em **boas práticas**, **limpeza de código** e **estrutura escalável**. Ele fornece uma API RESTful para gerenciamento de startups, autenticação de usuários e integração com chatbot.
 
