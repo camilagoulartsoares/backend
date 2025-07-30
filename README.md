@@ -44,6 +44,12 @@ Este é o backend da aplicação Investidores.vc, desenvolvido com **NestJS**, *
 
 ---
 
+## 🌍 Hospedagem em produção
+A aplicação está hospedada na Railway:
+
+https://ivc-backend-production-d747.up.railway.app/
+---
+
 ## 🛠 Como rodar localmente
 
 ```bash
