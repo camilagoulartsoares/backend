@@ -52,7 +52,7 @@ Este é o backend da aplicação **Investidores.vc**, construído com foco em **
 ## 🌍 Hospedagem em produção
 A aplicação está hospedada na Railway:
 
-https://ivc-backend-production-d747.up.railway.app/
+https://backend-production-e7e3.up.railway.app/
 ---
 
 ## 🛠 Como rodar localmente
